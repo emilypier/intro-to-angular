@@ -7,6 +7,10 @@ import { Component } from '@angular/core';
 
 export class ProductListComponent {
   pageTitle: string = 'Product List';
+  imageWidth: number = 50;
+  imageMargin: number = 2;
+  showImage: boolean = false;
+  listFilter: string = "cart";
   // in ts, can use "any" as datatype when we don't know or care what data type is
   products: any[] = [
     {
@@ -30,4 +34,8 @@ export class ProductListComponent {
       "imageUrl": "assets/images/hammer.png"
     },
   ];
+
+  toggleImage(): void {
+    this.showImage = !this.showImage;
+  }
 }
