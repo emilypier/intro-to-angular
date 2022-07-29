@@ -1,0 +1,41 @@
+<div class="card">
+  <div class="card-header">
+    <!-- Angular assigns the string value of pageTitle -->
+    {{pageTitle}} 
+  </div>
+  <div>
+    <div class="row">
+      <div class="col-md-2">filter by:</div>
+      <div class="col-md-4">
+        <input type="text" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <h4>filtered by:</h4>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table" *ngIf="products.length">
+        <thead>
+          <tr>
+            <th>
+              <button class="btn btn-primary">
+                show image
+              </button>
+            </th>
+            <th>product</th>
+            <th>code</th>
+            <th>available</th>
+            <th>price</th>
+            <th>5 star rating</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>
