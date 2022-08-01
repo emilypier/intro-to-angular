@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ProductService } from './product.service';
 import { IProduct } from './product';
+import { Subscription } from 'rxjs';
 
 @Component({ 
   selector: 'pm-products',
@@ -8,11 +9,14 @@ import { IProduct } from './product';
   styleUrls: ['./product-list.component.css']
 })
 
-export class ProductListComponent implements OnInit{
+export class ProductListComponent implements OnInit, OnDestroy{
   pageTitle: string = 'Product List';
   imageWidth: number = 50;
   imageMargin: number = 2;
   showImage: boolean = false;
+  errorMessage: string = '';
+  sub!: Subscription; //  or could say: sub: Subscription | undefined;
+  // the ! tells compiler that we will handle the assignment of this property later.
 
   private _listFilter: string = '';
   get listFilter(): string {
@@ -40,9 +44,17 @@ products: IProduct[] = [];
   }
 
   ngOnInit(): void {
-    this.products = this.productService.getProducts();
-    this.filteredProducts = this.products;
-    // this.listFilter = 'cart';
+    this.sub = this.productService.getProducts().subscribe({
+      next: products => {
+        this.products = products;
+        this.filteredProducts = this.products;
+      },
+      error: err => this.errorMessage = err
+    });
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
   onRatingClicked(message: string): void {
