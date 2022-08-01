@@ -46,7 +46,12 @@
             <td>{{product.productCode | lowercase | convertToSpaces:"-"}}</td>
             <td>{{product.releaseDate}}</td>
             <td>{{product.price | currency:'USD':'symbol':'1.2-2'}}</td>
-            <td>{{product.starRating}}</td>
+            <td>
+              <!-- set binding to the value we want to pass in to the nested component -->
+              <pm-star [rating] ='product.starRating'
+                (ratingClicked)='onRatingClicked($event)'>
+              </pm-star>
+            </td>
           </tr>
         </tbody>
       </table>
